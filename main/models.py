@@ -15,27 +15,27 @@ CATEGORY=[
 ]
 
 class PublishedEntryManager(models.Manager):
-    def get_queryset():
+    def get_queryset(self):
         return super().get_queryset().filter(status="UPLOADED")
 
 class DraftEntryManager(models.Manager):
-    def get_queryset():
+    def get_queryset(self):
         return super().get_queryset().filter(status="DRAFT")
 
 class EntryModel(models.Model):
     title=models.CharField()
-    slug=models.SlugField(unique_to_date="publish")# tags the uniqueness of the flug to the publish field which is a date
+    slug=models.SlugField(unique_for_date="publish")# tags the uniqueness of the flug to the publish field which is a date
     content=models.TextField()
     published=models.DateTimeField(default=timezone.now)
     created=models.DateTimeField(auto_now_add=True)# THe time cannot be editable
     updated=models.DateTimeField(auto_now=True)# time can be editable
-    status=models.CharField(choices=STATUS)
-    category=models.CharField(choices=CATEGORY)
+    status=models.CharField(choices=STATUS,default="DRAFT")
+    category=models.CharField(choices=CATEGORY,default="STUDY NOTES")
     uploaded=PublishedEntryManager()
     draft=DraftEntryManager()
 
     class Meta:
-        ordering=("-published")
+        ordering=("-published",)
 
     def __str__(self):
         return self.title
