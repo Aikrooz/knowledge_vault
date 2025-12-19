@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 STATUS=[
     ("DRAFT","DRAFT"),
@@ -17,7 +17,12 @@ class EntryModel(models.Model):
     title=models.CharField()
     slug=models.SlugField(unique_to_date="publish")# tags the uniqueness of the flug to the publish field which is a date
     content=models.TextField()
+    published=models.DateTimeField(default=timezone.now)
     created=models.DateTimeField(auto_now_add=True)# THe time cannot be editable
     updated=models.DateTimeField(auto_now=True)# time can be editable
     status=models.CharField(choices=STATUS)
     category=models.CharField(choices=CATEGORY)
+
+
+    class Meta:
+        ordering=("-published")
