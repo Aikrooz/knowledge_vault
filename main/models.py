@@ -13,6 +13,10 @@ CATEGORY=[
     ("IDEAS","IDEAS")
 ]
 
+class PublishedEntryManager(models.Manager):
+    def get_queryset():
+        return super().get_queryset().filter(status="UPLOADED")
+
 class EntryModel(models.Model):
     title=models.CharField()
     slug=models.SlugField(unique_to_date="publish")# tags the uniqueness of the flug to the publish field which is a date
@@ -22,7 +26,12 @@ class EntryModel(models.Model):
     updated=models.DateTimeField(auto_now=True)# time can be editable
     status=models.CharField(choices=STATUS)
     category=models.CharField(choices=CATEGORY)
-
+    uploaded=PublishedEntryManager()
 
     class Meta:
         ordering=("-published")
+
+    def __str__(self):
+        return self.title
+
+    
