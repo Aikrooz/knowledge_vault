@@ -7,3 +7,9 @@ class EntryModelView(ListView):
     context_object_name="post"
     template_name="post.html"
     queryset=EntryModel.uploaded.all()
+
+class EntryModelViewDetail(DetailView):
+    model=EntryModel
+    context_object_name="post"
+    template_name="post_detail"
+    queryset=EntryModel.uploaded.all()

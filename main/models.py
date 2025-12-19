@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 # Create your models here.
 STATUS=[
     ("DRAFT","DRAFT"),
@@ -33,5 +34,14 @@ class EntryModel(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_unique_url(self):
+        return revese("post:post_detail",
+        args=[
+            self.publish.year,
+            self.publish.month,
+            self.publish.date,
+            self.slug
+        ])
 
     
