@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 STATUS=[
     ("DRAFT","DRAFT"),
@@ -26,6 +27,7 @@ class EntryModel(models.Model):
     title=models.CharField()
     slug=models.SlugField(unique_for_date="publish")# tags the uniqueness of the flug to the publish field which is a date
     content=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
     published=models.DateTimeField(default=timezone.now)
     created=models.DateTimeField(auto_now_add=True)# THe time cannot be editable
     updated=models.DateTimeField(auto_now=True)# time can be editable
@@ -50,3 +52,5 @@ class EntryModel(models.Model):
         ])
 
     
+
+
