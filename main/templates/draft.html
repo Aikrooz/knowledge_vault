@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Drafts</title>
+</head>
+<body>
+    <h1>All Drafts</h1>
+    {% for post in post_list %}
+        <article>
+            <h2><a href="{% url 'post:draft_detail' post.slug %}">{{ post.title }}</a></h2>
+            <p>Created: {{ post.created|date:"F j, Y" }}</p>
+            <p>Category: {{ post.category }}</p>
+            <p>{{ post.content|truncatewords:50 }}</p>
+        </article>
+    {% empty %}
+        <p>No drafts available.</p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -18,6 +18,10 @@ class PublishedEntryManager(models.Manager):
     def get_queryset():
         return super().get_queryset().filter(status="UPLOADED")
 
+class DraftEntryManager(models.Manager):
+    def get_queryset():
+        return super().get_queryset().filter(status="DRAFT")
+
 class EntryModel(models.Model):
     title=models.CharField()
     slug=models.SlugField(unique_to_date="publish")# tags the uniqueness of the flug to the publish field which is a date
@@ -28,6 +32,7 @@ class EntryModel(models.Model):
     status=models.CharField(choices=STATUS)
     category=models.CharField(choices=CATEGORY)
     uploaded=PublishedEntryManager()
+    draft=DraftEntryManager()
 
     class Meta:
         ordering=("-published")
@@ -36,7 +41,7 @@ class EntryModel(models.Model):
         return self.title
 
     def get_unique_url(self):
-        return revese("post:post_detail",
+        return reverse("post:post_detail",
         args=[
             self.publish.year,
             self.publish.month,
