@@ -24,15 +24,16 @@ class DraftEntryManager(models.Manager):
         return super().get_queryset().filter(status="DRAFT")
 
 class EntryModel(models.Model):
-    title=models.CharField()
-    slug=models.SlugField(unique_for_date="publish")# tags the uniqueness of the flug to the publish field which is a date
+    title=models.CharField(max_length=200)
+    slug=models.SlugField(unique_for_date="published")# tags the uniqueness of the flug to the publish field which is a date
     content=models.TextField()
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="knowledge_vault",null=True,blank=True)
     published=models.DateTimeField(default=timezone.now)
     created=models.DateTimeField(auto_now_add=True)# THe time cannot be editable
     updated=models.DateTimeField(auto_now=True)# time can be editable
     status=models.CharField(choices=STATUS,default="DRAFT")
     category=models.CharField(choices=CATEGORY,default="STUDY NOTES")
+    objects = models.Manager()  # Default manager
     uploaded=PublishedEntryManager()
     draft=DraftEntryManager()
 
@@ -45,9 +46,9 @@ class EntryModel(models.Model):
     def get_unique_url(self):
         return reverse("post:post_detail",
         args=[
-            self.publish.year,
-            self.publish.month,
-            self.publish.date,
+            self.published.year,
+            self.published.month,
+            self.published.day,
             self.slug
         ])
 
