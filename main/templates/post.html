@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>All Posts</h1>
-    {% for post in posts %}
+    {% for post in post %}
         <article>
             <h2><a href="{{post.get_unique_url}}">{{ post.title }}</a></h2>
             <p>Published: {{ post.published|date:"F j, Y" }}</p>

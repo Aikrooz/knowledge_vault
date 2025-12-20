@@ -52,6 +52,15 @@ class EntryModel(models.Model):
             self.slug
         ])
 
+    def get_draft_url(self):
+        return reverse("vault:draft_detail",
+        args=[
+            self.published.year,
+            self.published.month,
+            self.published.day,
+            self.slug
+        ])
+
     
 
 
