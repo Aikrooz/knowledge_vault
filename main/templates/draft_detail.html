@@ -11,6 +11,6 @@
     <p>Updated: {{ post.updated|date:"F j, Y" }}</p>
     <p>Category: {{ post.category }}</p>
     <div>{{ post.content|linebreaks }}</div>
-    <a href="{% url 'post:draft' %}">Back to all drafts</a>
+    <a href="{% url 'vault:draft' %}">Back to all drafts</a>
 </body>
 </html>

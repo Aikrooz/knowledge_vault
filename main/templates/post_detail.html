@@ -10,6 +10,6 @@
     <p>Published: {{ post.published|date:"F j, Y" }}</p>
     <p>Category: {{ post.category }}</p>
     <div>{{ post.content|linebreaks }}</div>
-    <a href="{% url 'post:post' %}">Back to all posts</a>
+    <a href="{% url 'vault:post' %}">Back to all posts</a>
 </body>
 </html>

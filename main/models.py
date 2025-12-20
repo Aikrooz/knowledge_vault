@@ -44,7 +44,7 @@ class EntryModel(models.Model):
         return self.title
 
     def get_unique_url(self):
-        return reverse("post:post_detail",
+        return reverse("vault:post_detail",
         args=[
             self.published.year,
             self.published.month,

@@ -4,7 +4,7 @@ from django.views.generic import ListView,DetailView
 # Create your views here.
 class EntryModelView(ListView):
     model=EntryModel
-    context_object_name="post"
+    context_object_name="posts"
     template_name="post.html"
     queryset=EntryModel.uploaded.all()
     paginate_by=5
@@ -19,7 +19,7 @@ class EntryModelViewDetail(DetailView):
 
 class EntryModelDraftView(ListView):
     model=EntryModel
-    context_object_name="post"
+    context_object_name="posts"
     template_name="draft.html"
     queryset=EntryModel.draft.all()
     paginate_by=5
